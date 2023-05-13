@@ -8,21 +8,19 @@ Notiflix.Notify.init({
     showOnlyTheLastOne: true,
 })
 
-refs = {
-    input: document.querySelector('input#datetime-picker'),
-    btnStart: document.querySelector('[data-start]'),
-    daysCounter: document.querySelector('[data-days]'),
-    hoursCounter: document.querySelector('[data-hours]'),
-    minutesCounter: document.querySelector('[data-minutes]'),
-    secondsCounter: document.querySelector('[data-seconds]'),
-    counterBox: document.querySelector('.timer'),
-};
+    const input = document.querySelector('input#datetime-picker');
+    const btnStart = document.querySelector('[data-start]');
+    const daysCounter = document.querySelector('[data-days]');
+    const hoursCounter = document.querySelector('[data-hours]');
+    const minutesCounter = document.querySelector('[data-minutes]');
+    const secondsCounter = document.querySelector('[data-seconds]');
+    const counterBox = document.querySelector('.timer');
 
-refs.counterBox.style.display = 'flex'
-refs.counterBox.style.gap = '10px'
+counterBox.style.display = 'flex'
+counterBox.style.gap = '10px'
 
-refs.btnStart.setAttribute('disabled', 'disabled');
-refs.input.addEventListener('input', flatpickr)
+btnStart.setAttribute('disabled', 'disabled');
+input.addEventListener('input', flatpickr)
 
 let timer = new Date();
 
@@ -61,19 +59,19 @@ function startBtn(timer) {
         Notiflix.Notify.info("Please choose a date in the future");
         return
     } else {
-        refs.btnStart.removeAttribute('disabled', 'disabled');
-        refs.btnStart.addEventListener('click', start)
+        btnStart.removeAttribute('disabled', 'disabled');
+        btnStart.addEventListener('click', start)
     }
 }
 
 function start() {
-        refs.btnStart.setAttribute('disabled', 'disabled');
-        refs.input.setAttribute('disabled', 'disabled');
+        btnStart.setAttribute('disabled', 'disabled');
+        input.setAttribute('disabled', 'disabled');
         let intervalId = setInterval(() => {
             timer -= 1000;
             if (timer <= 0) {
-            refs.btnStart.removeAttribute('disabled', 'disabled');
-            refs.input.removeAttribute('disabled', 'disabled');
+            btnStart.removeAttribute('disabled', 'disabled');
+            input.removeAttribute('disabled', 'disabled');
                 clearInterval(intervalId)
                 return
             } else {
@@ -93,8 +91,8 @@ function start() {
     }
     
     function addLeadingZero({ days, hours, minutes, seconds }) {
-        refs.secondsCounter.textContent = String(seconds).padStart(2, '0');
-        refs.minutesCounter.textContent = String(minutes).padStart(2, '0');
-        refs.hoursCounter.textContent = String(hours).padStart(2, '0');
-    refs.daysCounter.textContent = String(days).padStart(2, '0');
+        secondsCounter.textContent = String(seconds).padStart(2, '0');
+        minutesCounter.textContent = String(minutes).padStart(2, '0');
+        hoursCounter.textContent = String(hours).padStart(2, '0');
+    daysCounter.textContent = String(days).padStart(2, '0');
 };
