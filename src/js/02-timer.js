@@ -1,7 +1,7 @@
 import Notiflix from 'notiflix';
-import "notiflix/dist/notiflix-3.2.6.min.css"
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import "flatpickr/dist/themes/dark.css";
 
 Notiflix.Notify.init({
     position: 'center-center',
@@ -50,7 +50,9 @@ function convertMs(convertedTime) {
     const minutes = Math.floor(((convertedTime % day) % hour) / minute);
     const seconds = Math.floor((((convertedTime % day) % hour) % minute) / second);
     addLeadingZero({ days, hours, minutes, seconds })
-    warningTimer({seconds})
+    if (days === 0 && hours === 0 && minutes === 0) {
+        warningTimer({ seconds })
+    }
 
 }
 
@@ -70,6 +72,8 @@ function start() {
         let intervalId = setInterval(() => {
             timer -= 1000;
             if (timer <= 0) {
+            refs.btnStart.removeAttribute('disabled', 'disabled');
+            refs.input.removeAttribute('disabled', 'disabled');
                 clearInterval(intervalId)
                 return
             } else {
@@ -78,13 +82,13 @@ function start() {
         }, 1000);
     }    
     
-    function warningTimer({seconds}) {
+    function warningTimer({ seconds }) {
         if (seconds >= 5) {
             return;
         } else if(seconds >=1){
             Notiflix.Notify.warning(`Залишилось : ${seconds}`);
         } else {
-            Notiflix.Notify.success(`ЧАС ЗАКІНЧИВСЯ`);
+            Notiflix.Notify.success(`ЧАС ЗАКІНЧИВСЯ, ОБЕРІТЬ НОВУ ДАТУ`);
         }
     }
     

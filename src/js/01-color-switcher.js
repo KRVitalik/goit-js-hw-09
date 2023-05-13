@@ -14,6 +14,8 @@ function onBtnStart() {
   if (intervalId) {
     return
   };
+  btnStop.removeAttribute('disabled', 'disabled')
+  btnStart.setAttribute('disabled', 'disabled')
     intervalId = setInterval(() => {
       randomBodyColor.style.backgroundColor = `${getRandomHexColor()}`
     }, 1000);
@@ -23,6 +25,8 @@ function onBtnStop() {
   if (!intervalId) {
     return
   };
+  btnStop.setAttribute('disabled', 'disabled')
+  btnStart.removeAttribute('disabled', 'disabled')
   clearInterval(intervalId);
   intervalId = false;
 }
